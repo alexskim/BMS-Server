@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.asjks.bms.server.mapper.AdMapper">
+	<resultMap id="AdResultMap" type="cc.asjks.bms.server.model.Ad">
+  		<id column="id" jdbcType="INTEGER" property="id"/>
+    	<result column="contact" jdbcType="VARCHAR" property="contact" />
+    	<result column="content" jdbcType="VARCHAR" property="content" />
+    	<result column="img" jdbcType="BLOB" property="img"/>
+    	<result column="begin" jdbcType="VARCHAR" property="begin" />
+    	<result column="end" jdbcType="VARCHAR" property="end" />   
+	</resultMap>
+	
+	<select id="queryAllAd" resultMap="AdResultMap" parameterType="Long">
+		select * from t_advertisement
+	</select>
+	
+	<select id="queryAllAdByTime" resultMap="AdResultMap" parameterType="Long">
+		select * from t_advertisement where begin<![CDATA[ < ]]>#{nowTimestamp} and end<![CDATA[ > ]]>#{nowTimestamp}
+	</select>
+	
+	<update id="updateAd" parameterType="cc.asjks.bms.server.model.Ad">
+		UPDATE t_advertisement set contact=#{contact,jdbcType=VARCHAR},content=#{content,jdbcType=VARCHAR},img=#{img,jdbcType=BLOB},begin=#{begin,jdbcType=VARCHAR},end=#{end,jdbcType=VARCHAR} where id=#{id,jdbcType=INTEGER}
+	</update>
+	
+	<insert id="addAd" parameterType="cc.asjks.bms.server.model.Ad">
+		INSERT INTO t_advertisement(contact,content,img,begin,end) 
+		values(#{contact,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{img,jdbcType=BLOB},#{begin,jdbcType=VARCHAR},#{end,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="deleteAdById" parameterType="java.lang.Integer">
+		DELETE FROM t_advertisement where id=#{id,jdbcType=INTEGER}
+	</delete>
+</mapper>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.asjks.bms.server.mapper.MoneyMapper">
+
+	<resultMap id="MoneyResultMap" type="cc.asjks.bms.server.model.Money">
+		<id column="uid" jdbcType="INTEGER" property="uid"/>
+		<result column="CNY" jdbcType="VARCHAR" property="CNY" />
+		<result column="USD" jdbcType="VARCHAR" property="USD" />
+	</resultMap> 
+
+	<select id="selectCNYById" resultMap="MoneyResultMap">
+  		select uid,CNY from t_deposit where uid = #{uid,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectUSDById" resultMap="MoneyResultMap">
+  		select uid,USD from t_deposit where uid = #{uid,jdbcType=INTEGER}
+	</select>
+	
+	<update id="updateCNYById" parameterType="cc.asjks.bms.server.model.Money">
+		UPDATE t_deposit set CNY=#{CNY,jdbcType=VARCHAR} where uid=#{uid,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateUSDById" parameterType="cc.asjks.bms.server.model.Money">
+		UPDATE t_deposit set USD=#{USD,jdbcType=VARCHAR} where uid=#{uid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="queryAllBlanace" resultMap="MoneyResultMap">
+		select * from t_deposit
+	</select>
+	
+	<update id="updateMoneyById" parameterType="cc.asjks.bms.server.model.Money">
+		UPDATE t_deposit set CNY=#{CNY,jdbcType=VARCHAR},USD=#{USD,jdbcType=VARCHAR} where uid=#{uid,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.asjks.bms.server.mapper.DetailsMapper">
+
+	<resultMap id="DetailsResultMap" type="cc.asjks.bms.server.model.Details">
+  		<id column="id" jdbcType="INTEGER" property="id"/>
+    	<result column="uid" jdbcType="VARCHAR" property="uid" />
+    	<result column="date" jdbcType="VARCHAR" property="date" />    
+    	<result column="toUid" jdbcType="VARCHAR" property="toUid" />
+    	<result column="amount" jdbcType="VARCHAR" property="amount" />
+    	<result column="currency" jdbcType="VARCHAR" property="currency" />   
+		<result column="type" jdbcType="VARCHAR" property="type" />
+	</resultMap> 
+
+	<insert id="writeDetails" parameterType="cc.asjks.bms.server.model.Details">
+		INSERT INTO t_details(uid,date,toUid,amount,currency,type) 
+		values(#{uid,jdbcType=VARCHAR},#{date,jdbcType=VARCHAR},#{toUid,jdbcType=VARCHAR},#{amount,jdbcType=VARCHAR},#{currency,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="writeDepositDetails" parameterType="cc.asjks.bms.server.model.Details">
+		INSERT INTO t_details(uid,date,amount,currency,type) 
+		values(#{uid,jdbcType=VARCHAR},#{date,jdbcType=VARCHAR},#{amount,jdbcType=VARCHAR},#{currency,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="writeWithdrawDetails" parameterType="cc.asjks.bms.server.model.Details">
+		INSERT INTO t_details(uid,date,amount,currency,type) 
+		values(#{uid,jdbcType=VARCHAR},#{date,jdbcType=VARCHAR},#{amount,jdbcType=VARCHAR},#{currency,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="queryAllDetails" resultMap="DetailsResultMap">
+		select * from t_details
+	</select>
+	
+	<select id="queryDetails" resultMap="DetailsResultMap">
+		select * from t_details where uid=#{uid,jdbcType=INTEGER}
+	</select>
+</mapper>
